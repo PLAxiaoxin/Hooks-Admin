@@ -1,9 +1,8 @@
-import md5 from "js-md5";
 import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Login } from "@/api/interface";
-import { loginApi } from "@/api/modules/login";
+import { loginApi, getToken } from "@/api/modules/login";
 import { HOME_URL } from "@/config/config";
 import { connect } from "react-redux";
 import { setToken } from "@/redux/modules/global/action";
@@ -20,9 +19,15 @@ const LoginForm = (props: any) => {
 
 	// 登录
 	const onFinish = async (loginForm: Login.ReqLoginForm) => {
+		const { data } = await getToken();
+		loginForm = {
+			captchaType: "blockPuzzle",
+			pointJson: "AUtA+2WbqnE8GNH13zmLrnlBR/2iMnIfk8d7OqVyQ7w=",
+			token: "476bf227adfc4e358521aa1484dfcb13"
+		};
+		console.log(data);
 		try {
 			setLoading(true);
-			loginForm.password = md5(loginForm.password);
 			const { data } = await loginApi(loginForm);
 			setToken(data?.access_token);
 			setTabsList([]);

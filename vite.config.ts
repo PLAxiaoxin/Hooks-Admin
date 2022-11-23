@@ -35,17 +35,19 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 		},
 		// server config
 		server: {
-			host: "0.0.0.0", // 服务器主机名，如果允许外部访问，可设置为"0.0.0.0"
-			port: viteEnv.VITE_PORT,
-			open: viteEnv.VITE_OPEN,
-			cors: true,
-			// https: false,
-			// 代理跨域（mock 不需要配置，这里只是个事列）
+			port: 3001,
 			proxy: {
-				"/api": {
-					target: "https://mock.mengxuegu.com/mock/62abda3212c1416424630a45", // easymock
+				// "/code": {
+				// 	target: "https://oa-test.oafoodism.cc",
+				// 	changeOrigin: true,
+				// 	secure: false,
+				// 	ws: true,
+				// 	rewrite: path => path.replace("/code/", "/")
+				// }
+				"/code": {
+					target: "https://oa-test.oafoodism.cc/code", // easymock
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, "")
+					rewrite: path => path.replace(/^\/code/, "")
 				}
 			}
 		},

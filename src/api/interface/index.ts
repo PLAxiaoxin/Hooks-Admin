@@ -26,8 +26,9 @@ export interface ReqPage {
 // * 登录
 export namespace Login {
 	export interface ReqLoginForm {
-		username: string;
-		password: string;
+		captchaType: string;
+		pointJson: string;
+		token: string;
 	}
 	export interface ResLogin {
 		access_token: string;
